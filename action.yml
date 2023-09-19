@@ -1,0 +1,85 @@
+name: Builds the repo for with the DGMJR-IO SDK
+author: David G. Moore, Jr., <david@dgmjr.io>
+description: Builds the repo for with the DGMJR-IO SDK
+
+branding:
+  icon: file-plus
+  color: green
+
+inputs:
+  environment:
+    type: string
+    default: Local
+    required: false
+  git-token:
+    type: string
+    required: true
+  git-username:
+    type: string
+    required: false
+    default: dgmjr
+  git-nuget-endpoint:
+    type: string
+    required: false
+    default: https://nuget.pkg.github.com/dgmjr-io/index.json
+  private-nuget-endpoint:
+    type: string
+    required: false
+    default: https://proget.dgmjr.io/nuget/live/v3/index.json
+  private-nuget-api-key:
+    type: string
+    required: false
+    default: 
+  nuget-api-key:
+    type: string
+    required: false
+  repo:
+    type: string
+    required: true
+    default: dgmjr-io/DgmjrSdk
+  configuration:
+    type: string
+    required: false
+    default: Release
+  package-version-override:
+    type: string
+    required: false
+    default: 0.0.1
+
+runs:
+  using: composite
+  steps:
+  - id: Checkout the repository being compiled
+    uses: actions/checkout@v3
+    with:
+      path: Repo
+  - id: Checkout the Packages repository alongside the one being compiled
+  uses: actions/checkout@v3
+  with:
+    repository: dgmjr-io/Packages
+    path: Packages
+  - id: Run setup-dgmjrsdk
+  uses: dgmjr-actions/setup-dgmjrsdk@main
+  with:
+    git-token: ${{ inputs.git-token }}
+    environment: Release
+    git-nuget-endpoint: ${{ inputs.git-nuget-endpoint }}
+    private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
+    private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
+  - id: Restore dependencies
+  run: dotnet restore Repo/src/DgmjrSdk.nuproj
+  - id: Build
+  run: dotnet build Repo/src/DgmjrSdk.nuproj --no-restore -c:Release
+  - id: Upload the NuGet Package
+  uses: actions/upload-artifact@v3.1.2
+  with:
+    # Artifact name
+    name: DgmjrSdk-NuGetPackage
+    # A file, directory or wildcard pattern that describes what to upload
+    path: "**/*.nupkg"
+    # The desired behavior if no files are found using the provided path.
+    if-no-files-found: error
+      retention-days: 1
+        
+
+        
