@@ -54,22 +54,24 @@ runs:
     with:
       path: Repo
   - id: Checkout the Packages repository alongside the one being compiled
-  uses: actions/checkout@v3
-  with:
-    repository: dgmjr-io/Packages
-    path: Packages
+    uses: actions/checkout@v3
+    with:
+      repository: dgmjr-io/Packages
+      path: Packages
   - id: Run setup-dgmjrsdk
-  uses: dgmjr-actions/setup-dgmjrsdk@main
-  with:
-    git-token: ${{ inputs.git-token }}
-    environment: Release
-    git-nuget-endpoint: ${{ inputs.git-nuget-endpoint }}
-    private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
-    private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
+    uses: dgmjr-actions/setup-dgmjrsdk@main
+    with:
+      git-token: ${{ inputs.git-token }}
+      environment: Release
+      git-nuget-endpoint: ${{ inputs.git-nuget-endpoint }}
+      private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
+      private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
   - id: Restore dependencies
-  run: dotnet restore Repo/src/DgmjrSdk.nuproj
+    shell: pwsh
+    run: dotnet restore Repo/src/DgmjrSdk.nuproj
   - id: Build
-  run: dotnet build Repo/src/DgmjrSdk.nuproj --no-restore -c:Release
+    shell: pwsh
+    run: dotnet build Repo/src/DgmjrSdk.nuproj --no-restore -c:Release
   - id: Upload the NuGet Package
   uses: actions/upload-artifact@v3.1.2
   with:
