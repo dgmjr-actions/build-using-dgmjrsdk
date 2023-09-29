@@ -52,16 +52,16 @@ inputs:
 runs:
   using: composite
   steps:
-  - id: Checkout the repository being compiled
+  - id: Checkout-the-repository-being-compiled
     uses: actions/checkout@v3
     with:
       path: Repo
-  - id: Checkout the Packages repository alongside the one being compiled
+  - id: Checkout-the-Packages-repository-alongside-the-one-being-compiled
     uses: actions/checkout@v3
     with:
       repository: dgmjr-io/Packages
       path: Packages
-  - id: Run setup-dgmjrsdk
+  - id: Run-setup-dgmjrsdk
     uses: dgmjr-actions/setup-dgmjrsdk@main
     with:
       git-token: ${{ inputs.git-token }}
@@ -69,13 +69,13 @@ runs:
       git-nuget-endpoint: ${{ inputs.git-nuget-endpoint }}
       private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
       private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
-  - id: Restore dependencies
+  - id: Restore-dependencies
     shell: pwsh
     run: dotnet restore Repo/${{ inputs.project-file-path }}
   - id: Build
     shell: pwsh
     run: dotnet build Repo/${{ inputs.project-file-path }} --no-restore -c:${{ inputs.configuration }}
-  - id: Upload the NuGet Package
+  - id: Upload-the-NuGet-Package-artifact
     uses: actions/upload-artifact@v3.1.2
     with:
       # Artifact name
