@@ -84,7 +84,6 @@ runs:
       path: "**/*.nupkg"
       # The desired behavior if no files are found using the provided path.
       if-no-files-found: error
-        retention-days: 1
-        
+      retention-days: 1      
 
         
