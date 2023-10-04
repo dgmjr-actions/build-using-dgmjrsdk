@@ -55,6 +55,7 @@ runs:
   - id: Checkout-the-repository-being-compiled
     uses: actions/checkout@v3
     with:
+      repository: ${{ inputs.repo }}
       path: Repo
   - id: Checkout-the-Packages-repository-alongside-the-one-being-compiled
     uses: actions/checkout@v3
