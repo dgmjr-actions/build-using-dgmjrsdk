@@ -36,7 +36,6 @@ inputs:
   repo:
     type: string
     required: true
-    default: dgmjr-io/DgmjrSdk
   configuration:
     type: string
     required: false
