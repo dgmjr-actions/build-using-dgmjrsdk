@@ -72,6 +72,9 @@ runs:
   - id: Display
     shell: pwsh
     run: ls Repo/
+  - id: Display2
+    shell: pwsh
+    run: ls Repo/src
   - id: Restore-dependencies
     shell: pwsh
     run: dotnet restore Repo/${{ inputs.project-file-path }}
