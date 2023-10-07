@@ -70,12 +70,6 @@ runs:
       private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
       private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
       repo: ${{ inputs.repo }}
-  - id: Display
-    shell: pwsh
-    run: ls Repo/
-  - id: Display2
-    shell: pwsh
-    run: ls Repo/src
   - id: Restore-dependencies
     shell: pwsh
     run: dotnet restore Repo/${{ inputs.project-file-path }}
