@@ -70,12 +70,12 @@ runs:
       private-nuget-endpoint: ${{ inputs.private-nuget-endpoint }}
       private-nuget-api-key: ${{ inputs.private-nuget-api-key }}
       repo: ${{ inputs.repo }}
-  - id: Restore-dependencies
-    shell: pwsh
-    run: dotnet restore Repo/${{ inputs.project-file-path }}
+  # - id: Restore-dependencies
+  #   shell: pwsh
+  #   run: dotnet restore Repo/${{ inputs.project-file-path }}
   - id: Build
     shell: pwsh
-    run: dotnet build Repo/${{ inputs.project-file-path }} --no-restore -c:${{ inputs.configuration }}
+    run: dotnet build Repo/${{ inputs.project-file-path }} -c:${{ inputs.configuration }}
   - id: Upload-the-NuGet-Package-artifact
     uses: actions/upload-artifact@v3.1.2
     with:
