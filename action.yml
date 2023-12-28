@@ -1,4 +1,4 @@
-name: Builds the repo for with the DGMJR-IO SDK
+name: Build Using DGMJR-IO SDK
 author: David G. Moore, Jr., <david@dgmjr.io>
 description: Builds the repo for with the DGMJR-IO SDK
 
@@ -29,7 +29,7 @@ inputs:
   private-nuget-api-key:
     type: string
     required: false
-    default: 
+    default:
   nuget-api-key:
     type: string
     required: false
@@ -88,6 +88,6 @@ runs:
       path: "**/*.nupkg"
       # The desired behavior if no files are found using the provided path.
       if-no-files-found: error
-      retention-days: 1      
+      retention-days: 1
 
-        
+
