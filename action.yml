@@ -51,14 +51,17 @@ inputs:
 runs:
   using: composite
   steps:
-  - id: Checkout-the-repository-being-compiled
-    uses: actions/checkout@v3
+  - id: Checkout-compiled
+    name: Checkout the Repository Being Compiled
+    uses: dgmjr-actions/git-checkout@main
     with:
       repository: ${{ inputs.repo }}
       path: Repo
-  - id: Checkout-the-Packages-repository-alongside-the-one-being-compiled
-    uses: actions/checkout@v3
+  - id: Checkout-Packages
+    name: Checkout the Packages Repository  Alongside the one Being Compiled
+    uses: dgmjr-actions/git-checkout@main
     with:
+      token: ${{ inputs.git-token }}
       repository: dgmjr-io/Packages
       path: Packages
   - id: Run-setup-dgmjrsdk
