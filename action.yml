@@ -55,6 +55,7 @@ runs:
     name: Checkout the Repository Being Compiled
     uses: dgmjr-actions/git-checkout@main
     with:
+      token: ${{ inputs.git-token }}
       repository: ${{ inputs.repo }}
       path: Repo
   - id: Checkout-Packages
